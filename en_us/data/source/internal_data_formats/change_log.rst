@@ -14,6 +14,8 @@ October-December 2014
 
    * - Date
      - Change
+   * - 1?/?/14
+     - Added information about ORA2 sql tables now being added to the exports. See :ref:`ORA2 Data`.
    * - 11/13/14
      - Updated the ``student_courseenrollment.mode`` description.
    * - 11/5/14
