@@ -224,3 +224,275 @@ remainder of the infrastructure. The edX Analytics API and edX Insights services
 are each deployed to at least one server. The Scheduler is deployed to another
 server. A MySQL database is deployed to a server that is configured to host a
 relational database.
+
+
+******************************
+Using Elastic MapReduce on AWS
+******************************
+
+1. A VPC (Virtual Private Cloud) is created with at least one public subnet. A
+   limitation of EMR (Elastic MapReduce) running in a VPC is that clusters must
+   be deployed into public subnets of VPCs. An existing VPC may be used if
+   one is already available for use.
+
+    a) It is recommended, but not necessary, to also have at least one private
+       subnet in addition to the required public subnet. See the AWS
+       documentation for an `example configuration
+       <http://docs.aws.amazon.com/AmazonVPC/latest/User
+       Guide/VPC_Scenario2.html>`_.
+    #) An example configuration that only includes a single public subnet can be
+       found in `this document <http://docs.aws.amazon.com/AmazonVPC/latest/User
+       Guide/VPC_Scenario1.html>`_ published by AWS.
+    #) It can also be advantageous to deploy several public subnets in different
+       availability zones in order to take advantage of price fluctuations in
+       the `spot pricing market <http://aws.amazon.com/ec2/purchasing-options
+       /spot-instances/>`_.
+    #) Consider that the clusters deployed using EMR will need network
+       connectivity to a read replica of the LMS database. Using the same VPC as
+       the LMS is recommended if possible.
+    #) It is possible to run all of these services outside of a VPC but not
+       recommended.
+
+#. An IAM role is created for use by the EMR cluster. All EC2 nodes in the
+   cluster will be assigned this role. Consider copying the contents of the
+   `default role
+   <http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-iam-
+   roles-defaultroles.html#emr-iam-roles-defaultec2>`_ used by AWS.
+
+#. An IAM user with administrative privileges is available for use.
+
+#. A secure ssh key is generated. This will be used to access all AWS resources.
+
+    .. code-block:: bash
+
+        ssh-keygen -t rsa -C "your_email@example.com"
+
+#. The public key from the SSH key pair is uploaded to AWS and assigned a
+   keypair name.
+
+#. Ensure at least one EC2 instance is available to host the various services.
+   Depending on the scale of the deployment, more instances may be necessary.
+   The instances should be deployed using the secure keypair name.
+
+#. A MySQL 5.6 RDS instance is deployed. This is the result store.
+
+    a) Ensure there is connectivity between the EC2 instance that is hosting the
+       edX Analytics API and this RDS instance. Also, ensure that instances
+       deployed into the public subnet of the VPC will be able to connect to
+       this RDS instance.
+    #) At least two users are created on this instance. One is called "pipeline"
+       and has permission to create databases, tables, indexes and issue
+       arbitrary DML (Data Manipulation Language) commands. The other, called
+       "api", has read-only access. Passwords are configured for both of these
+       users.
+    #) This instance is configured to use the "utf8_bin" collation by default
+       for columns in all databases and tables.
+
+#. An SSH connection is established to the EC2 instance within the VPC that will
+   run the scheduler service. All further commands described below should be
+   issued from a shell running on that instance.
+
+#. The sources files from `edx-analytics-configuration <https://github.com/edx
+   /edx-analytics-configuration>`_ are checked out.
+
+    .. code-block:: bash
+
+        git clone https://github.com/edx/edx-analytics-configuration.git
+
+#. The shell is configured to use the AWS credentials of the administrative AWS
+   user.
+
+    .. code-block:: bash
+
+        export AWS_ACCESS_KEY_ID=<access key ID goes here>
+        export AWS_SECRET_ACCESS_KEY=<secret access key goes here>
+
+#. The `AWS command line utility <http://aws.amazon.com/cli/`_ is installed.
+
+    .. code-block:: bash
+
+        pip install awscli
+
+#. An S3 bucket is created to hold all Hadoop logs from the EMR cluster.
+
+    .. code-block:: bash
+
+        aws s3 mb s3://<your logging bucket name here>
+
+
+#. An S3 bucket is created to hold secure configuration files and initialization
+   scripts.
+
+    .. code-block:: bash
+
+        aws s3 mb s3://<your configuration bucket name here>
+
+#. The `MySQL connector library
+   <http://dev.mysql.com/downloads/connector/j/5.1.html>`_ is downloaded from
+   Oracle. Once the download is completed it is uploaded to S3.
+
+    .. code-block:: bash
+
+        aws s3 cp /tmp/mysql-connector-java-5.1.*.tar.gz s3://<your configuration bucket name here>/
+
+#. Since the MySQL connector library version has likely changed from when the
+   script was written, the ``edx-analytics-configuration/batch/bootstrap
+   /install-sqoop`` script may need to be modified to point to the correct
+   version of the library in the S3 bucket. That change must be made before
+   continuing.
+
+#. The contents of the directory ``edx-analytics-
+   configuration/batch/bootstrap/`` are uploaded into the ``openedx-analytics-
+   configuration`` bucket.
+
+    .. code-block:: bash
+
+        aws s3 sync edx-analytics-configuration/batch/bootstrap/ s3://<your configuration bucket name here>/
+
+#. A cluster configuration file is created to specify the parameters for the
+   cluster that will soon be created. All of these parameters are reviewed and
+   changed appropriately to specify the desired configuration. This file is
+   saved to a temporary location such as ``/tmp/cluster.yml``.
+
+    .. code-block:: yaml
+
+        {
+            name: <your cluster name here>,
+            keypair_name: <your keypair name here>,
+            vpc_subnet_id: <your VPC public subnet ID here>,
+            log_uri: "s3://<your logging bucket name here>",
+            instance_groups: {
+                master: {
+                    num_instances: 1,
+                    type: m1.medium,
+                    market: ON_DEMAND,
+                },
+                core: {
+                    num_instances: 2,
+                    type: m1.medium,
+                    market: SPOT,
+                    bidprice: 0.03
+                },
+                task: {
+                    num_instances: 1,
+                    type: m1.medium,
+                    market: SPOT,
+                    bidprice: 0.03
+                }
+            },
+            bootstrap_actions: {
+                security: {
+                    path: "s3://<your configuration bucket name here>/security.sh"
+                },
+                jobtrackerconfig: {
+                    path: "s3://elasticmapreduce/bootstrap-actions/configure-hadoop",
+                    args: [
+                        -m, "mapred.jobtracker.completeuserjobs.maximum=5",
+                        -m, "mapred.job.tracker.retiredjobs.cache.size=50",
+                        -m, "mapred.job.shuffle.input.buffer.percent=0.20"
+                    ]
+                }
+            },
+            steps: [
+                { type: hive_install },
+                {
+                    type: script,
+                    name: Install Sqoop,
+                    step_args: [
+                        "s3://<your configuration bucket name here>/install-sqoop",
+                        "s3://<your configuration bucket name here>"
+                    ]
+                }
+            ],
+            user_info: []
+        }
+
+#. An EMR cluster is deployed.
+
+    .. code-block:: bash
+
+        EXTRA_VARS="@/tmp/cluster.yml" make provision.emr
+
+    Example Output::
+
+        pip install -q -r requirements.txt
+        ansible-playbook --connection local -i 'localhost,' batch/provision.yml -e "$EXTRA_VARS"
+
+        PLAY [Provision cluster] ****************************************************** 
+
+        TASK: [provision EMR cluster] ************************************************* 
+        changed: [localhost]
+
+        TASK: [add master to group] *************************************************** 
+        ok: [localhost]
+
+        TASK: [display master IP address] ********************************************* 
+        ok: [localhost] => {
+            "msg": "10.0.1.236"
+        }
+
+        TASK: [display job flow ID] *************************************************** 
+        ok: [localhost] => {
+            "msg": "j-29UUJVM8P1NPY"
+        }
+
+        PLAY [Configure SSH access to cluster] **************************************** 
+
+        TASK: [user | debug var=user_info] ******************************************** 
+        ok: [10.0.1.236] => {
+            "item": "", 
+            "user_info": []
+        }
+
+        TASK: [user | create the edxadmin group] ************************************** 
+        changed: [10.0.1.236]
+
+        TASK: [user | ensure sudoers.d is read] *************************************** 
+        changed: [10.0.1.236]
+
+        TASK: [user | grant full sudo access to the edxadmin group] ******************* 
+        changed: [10.0.1.236]
+
+        TASK: [user | create the users] *********************************************** 
+        skipping: [10.0.1.236]
+
+        TASK: [user | create .ssh directory] ****************************************** 
+        skipping: [10.0.1.236]
+
+        TASK: [user | assign admin role to admin users] ******************************* 
+        skipping: [10.0.1.236]
+
+        TASK: [user | copy github key[s] to .ssh/authorized_keys2] ******************** 
+        skipping: [10.0.1.236]
+
+        TASK: [user | copy additional authorized keys] ******************************** 
+        skipping: [10.0.1.236]
+
+        TASK: [user | create bashrc file for normal users] **************************** 
+        skipping: [10.0.1.236]
+
+        TASK: [user | create .profile for all users] ********************************** 
+        skipping: [10.0.1.236]
+
+        TASK: [user | modify shell for restricted users] ****************************** 
+        skipping: [10.0.1.236]
+
+        TASK: [user | create bashrc file for restricted users] ************************ 
+        skipping: [10.0.1.236]
+
+        TASK: [user | create sudoers file from template] ****************************** 
+        changed: [10.0.1.236]
+
+        TASK: [user | change home directory ownership to root for restricted users] *** 
+        skipping: [10.0.1.236]
+
+        TASK: [user | create ~/bin directory] ***************************************** 
+        skipping: [10.0.1.236]
+
+        TASK: [user | create allowed command links] *********************************** 
+        skipping: [10.0.1.236]
+
+        PLAY RECAP ******************************************************************** 
+        10.0.1.236                 : ok=0    changed=4    unreachable=0    failed=0   
+        localhost                  : ok=4    changed=1    unreachable=0    failed=0
+
