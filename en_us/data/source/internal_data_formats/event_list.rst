@@ -42,6 +42,14 @@ Alphabetical Event List
      - :ref:`Instructor_Event_Types`
    * - ``dump-grades-raw``
      - :ref:`Instructor_Event_Types`
+   * - ``edx.bookmark.accessed``
+     - :ref:`bookmark_events`
+   * - ``edx.bookmark.added``
+     - :ref:`bookmark_events`
+   * - ``edx.bookmark.listed``
+     - :ref:`bookmark_events`
+   * - ``edx.bookmark.removed``
+     - :ref:`bookmark_events`
    * - ``edx.cohort.created``
      - :ref:`student_cohort_events`
    * - ``edx.cohort.creation_requested``

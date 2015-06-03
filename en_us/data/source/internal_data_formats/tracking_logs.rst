@@ -417,6 +417,8 @@ outside the Instructor Dashboard.
 
 * :ref:`problem`
 
+* :ref:`bookmark_events`
+
 * :ref:`library_events`
 
 * :ref:`forum_events`
@@ -2391,6 +2393,160 @@ for a problem and it is graded successfully.
        The array includes each problem in a problem component that has multiple
        problems.
 
+.. _bookmark_events:
+
+==========================
+Bookmark Events
+==========================
+
+This section includes descriptions of the following events. 
+
+* ``edx.course.bookmark.accessed``
+* ``edx.course.bookmark.added``
+* ``edx.course.bookmark.listed``
+* ``edx.course.bookmark.removed``
+
+The browser emits these events when learners add, view, use, and delete
+bookmarks, which help learners mark course units for easy access in the
+future.
+
+.. _edx_bookmark_accessed:
+
+``edx.bookmark.accessed``
+*********************************
+
+The browser emits this event when a learner accesses a bookmark by selecting a
+link on the **My Bookmarks** page in the LMS.
+
+``event`` **Member Fields**: 
+
+.. list-table::
+   :widths: 15 15 60
+   :header-rows: 1
+
+   * - Field
+     - Type
+     - Details
+   * - ``bookmark_id``
+     - string
+     - The unique internal identifier for the bookmark.
+   * - ``component_type``
+     - string
+     - The component type of the bookmarked XBlock. For more information, see
+       :ref:`Course Structure Category Field`.
+   * - ``component_usage_id``
+     - string
+     - The unique usage identifier of the bookmarked XBlock. This ID
+       corresponds to the ``courseware_studentmodule.module_id``. For more
+       information, see :ref:`module_id`.
+
+**Event Source**: Browser
+
+**History**: Added XX Jun 2015.
+
+.. _edx_bookmark_added:
+
+``edx.bookmark.added``
+*********************************
+
+The browser emits this event when the learner bookmarks a page.
+
+``event`` **Member Fields**:
+
+The ``edx.course.bookmark.added`` events include the same event member fields
+that are described for :ref:`edx_bookmark_accessed`. The following
+member fields serve the same purpose for accessed bookmarks, added bookmarks,
+and removed bookmarks.
+
+* ``bookmark_id``
+* ``component_type``
+* ``component_usage_id``
+
+The following ``event`` member field applies specifically to
+``edx.course.bookmark.added`` and ``edx.course.bookmark.removed`` events.
+
+.. list-table::
+   :widths: 15 15 60
+   :header-rows: 1
+
+   * - Field
+     - Type
+     - Details
+   * - ``course_id``
+     - string
+     - The identifier of the course that includes the bookmark.
+
+**Event Source**: Browser
+
+**History**: Added XX Jun 2015.
+
+``edx.bookmark.listed``
+*********************************
+
+The browser emits this event when a user selects **My Bookmarks** in the LMS
+to list previously bookmarked pages. If the number of bookmarked events
+exceeds the defined page length, the browser emits an additional
+``edx.course.bookmark.listed`` event each time the user navigates to a
+different page of results.
+
+``event`` **Member Fields**: 
+
+.. list-table::
+   :widths: 15 15 60
+   :header-rows: 1
+
+   * - Field
+     - Type
+     - Details
+   * - ``bookmarks_count``
+     - integer
+     - The number of pages a learner has bookmarked. If the ``course_id`` is
+       specified, this value will be the number of pages a learner has
+       bookmarked in that course.
+   * - ``course_id``
+     - string
+     - The identifier of the course that includes the bookmark. This is an
+       optional field that will only be present if the value for``list_type``
+       is ``per_course``.
+
+       * ``per_course`` indicates that all listed bookmarks are in a single course.
+       * ``all_courses`` indicates that the listed bookmarks may be in any
+         course the learner is enrolled in.
+
+   * - ``list_type``
+     - string
+     - Possible values are 'per_course' or 'all_courses'.
+   * - ``page_number``
+     - integer
+     - The current page number in the list of bookmarks.
+   * - ``page_size``
+     - integer
+     - The number of bookmarks on the current page.
+
+**Event Source**: Browser
+
+**History**: Added XX Jun 2015.
+
+``edx.bookmark.removed``
+*********************************
+
+The browser emits this event when a learner removes a bookmark from a page.
+
+``event`` **Member Fields**:
+
+The ``edx.course.bookmark.removed`` events include the same event member
+fields that are described for :ref:`edx_bookmark_added`. The following member fields serve the same
+purpose for added bookmarks and removed bookmarks.
+
+* ``bookmark_id``
+* ``component_type``
+* ``component_usage_id``
+* ``course_id``
+
+**Event Source**: Browser
+
+**History**: Added XX Jun 2015.
+
 
 .. _library_events:
 
@@ -2558,7 +2714,6 @@ The following additional ``event`` member fields apply specifically to
 Discussion Forums Events
 ==========================
 
-<<<<<<< HEAD
 This section includes descriptions of the following events. 
 
 * ``edx.forum.comment.created``
@@ -2566,8 +2721,6 @@ This section includes descriptions of the following events.
 * ``edx.forum.searched``
 * ``edx.forum.thread.created``
 
-=======
->>>>>>> Saudi Branch
 The server emits discussion forums events when a user interacts with a course
 discussion. This section presents the discussion forum events alphabetically.
 However, several of these events have hierarchical or sequential
@@ -3176,14 +3329,11 @@ the response.
 Third-Party Content Events
 ===========================
 
-<<<<<<< HEAD
 This section includes descriptions of the following events. 
 
 * ``edx.googlecomponent.calendar.displayed`` 
 * ``edx.googlecomponent.document.displayed``
 
-=======
->>>>>>> Saudi Branch
 EdX courses can include components that present content that is hosted by a
 third party. The server emits events when third-party content is shown to
 students.
@@ -4055,10 +4205,6 @@ uploading a .csv file of student cohort assignments.
 
 .. _Creating Exercises and Tools: http://edx-partner-course-staff.readthedocs.org/en/latest/exercises_tools/index.html
 
-<<<<<<< HEAD
 .. _Working with Libraries: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/creating_content/libraries.html
 
-
 .. _Working with Video Components: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/creating_content/create_video.html#advanced-options
-=======
->>>>>>> Saudi Branch
