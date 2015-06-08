@@ -2506,7 +2506,7 @@ different page of results.
    * - ``course_id``
      - string
      - The identifier of the course that includes the bookmark. This is an
-       optional field that will only be present if the value for``list_type``
+       optional field that will only be present if the value for ``list_type``
        is ``per_course``.
 
        * ``per_course`` indicates that all listed bookmarks are in a single course.
