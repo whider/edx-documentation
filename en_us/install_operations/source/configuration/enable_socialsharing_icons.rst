@@ -45,7 +45,7 @@ dashboard share settings in both Studio and the LMS.
         "DASHBOARD_SHARE_SETTINGS": {
             "FACEBOOK_SHARING": true,
             "TWITTER_SHARING": false,
-            "TWITTER_SHARING_TEXT": 
+            "TWITTER_SHARING_TEXT": Check out this fantastic course on edX!
 
 2. For each social sharing icon that you want to enable, set the value of the
    setting to ``True``.
@@ -98,7 +98,8 @@ in the LMS is used.
 	you have :ref:`configured the dashboard share flags<Configure Dashboard
 	Sharing>`.
 
-	.. note:: If you add the ``CUSTOM_COURSE_URLS`` flag and set it to ``True``
-	   but do not provide a value in the **Social Media Sharing URL** advanced
-	   setting in Studio, social sharing icons are not visible in the LMS.
+  .. note:: If you add the ``CUSTOM_COURSE_URLS`` flag and set it to ``True``
+     but do not provide a value in the **Social Media Sharing URL** advanced
+     setting in Studio, social sharing icons are not visible in the LMS for
+     that course.
 
