@@ -12,6 +12,20 @@ This section lists changes made to this document in 2015.
 
 For older changes, see :ref:`Change Log 2014`.
 
+****************
+September 2015
+****************
+
+.. list-table::
+   :widths: 15 70
+   :header-rows: 1
+
+   * - Date
+     - Change
+   * - 2 Sep 2015
+     - Added the :ref:`Setting Up Course Certificates` topic.
+
+
 ***************
 August 2015
 ***************
@@ -111,10 +125,6 @@ June 2015
        Development` section.
    * - 10 Jun 2015
      - Added the :ref:`Adding a Pre-Roll Video` section.
-   * - 
-     - Added the :ref:`view_not_yet_enrolled` section.
- 
-
 
 ****************
 May 2015
