@@ -56,16 +56,13 @@ To browse topics and find a team to join, follow these steps.
       that takes users to the list of teams within that topic highlighted.
       
 
-5. Each team's name and description, and in some cases the optional primary
-   language of a team and a country that team members identify with, are
-   shown. 
-
-   The number of team members is also shown, letting you know whether
-   the team is full, or whether there is space for you to join.
+5. Each team's name and description are shown, as well as the number of team
+   members, letting you know whether the team is full, or whether there is space
+   for you to join.
 
 .. image:: ../../shared/students/Images/Teams_TopicViewButton.png
   :width: 500
-  :alt: View of a team within a topic showing name and description, number of members.
+  :alt: Click the View button on a team card within a topic to go to the Team Details page. 
 
 6. To get a better sense of a team's members, discussion, and communications,
    select **View** for a team.
@@ -157,7 +154,7 @@ To create a team, follow these steps.
 
 .. image:: ../../shared/students/Images/Teams_CreateNewTeamLink.png
   :width: 500
-  :alt: The "createa a new team in this topic" link at the bottom of the page
+  :alt: The "create a new team in this topic" link at the bottom of the page
       showing all teams in a topic.
 
 4. On the **Create New Team** page, add a name and description for the team. 
