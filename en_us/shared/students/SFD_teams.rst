@@ -78,6 +78,10 @@ To browse topics and find a team to join, follow these steps.
    view or back to all topics using the breadcrumb links at the top of the
    page.
 
+.. image:: ../../shared/students/Images/Teams_Breadcrumbs.png
+  :width: 500
+  :alt: Use the breadcrumb links to navigate within teams and topics.
+
 
 =======================
 Join a Team
@@ -85,22 +89,23 @@ Join a Team
 
 When you have found a team you want to join, select **Join Team**. 
 
-.. note:: If a team is full, the **Join Team** button is not available.
+.. note:: If a team is full, or if you already belong to another team, the
+   **Join Team** button is not available.
 
 .. image:: ../../shared/students/Images/Teams_JoinTeamButton.png
   :width: 500
   :alt: The Join Team button on the details page of a team.
 
-Your profile is added to the list of team member profiles, and you can
-participate in the team's discussions. The team that you joined is added to
-the **My Team** page.
+You are automatically added as a member. Your profile is added to the list of
+team member profiles, and you can participate in the team's discussions. The
+team that you joined is added to your **My Team** page.
 
 .. note:: You can only belong to one team at a time. If you belong to a team,
    but find another team that you want to join, you must leave the first team
    before you can join a new one.
 
 
-.. Add back Invite Friends when this feature becomes available
+.. Add back Invite Friends section when this feature becomes available
 
 
 =======================
@@ -137,6 +142,8 @@ Creating a Team
 =======================
 
 Try to find an existing team to join, before creating a new team.
+
+.. note:: You cannot create a team if you already belong to a team.
 
 When you create a new team in a topic, you are automatically added as a
 member.
