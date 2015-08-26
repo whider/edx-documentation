@@ -1,7 +1,7 @@
 .. _Academic Course Credit:
 
 #####################################
-Academic Course Credit
+Offering Academic Course Credit
 #####################################
 
 If your institution has an agreement with edX, you might be able to offer
@@ -11,9 +11,9 @@ typically include periodic identity checks throughout the course as well as ID
 verification at the beginning of the course. Learners can see a list of the
 requirements on their **Progress** pages.
 
-If your course offers academic credit, your edX program manager will
-complete the initial setup of your course, including setting the price of
-credit and enabling your course to offer credit. You must then complete two
+If your course offers academic credit, your edX program manager will complete
+the initial setup of your course, including setting the price of credit and
+enabling your course to offer credit. You must then complete the following
 steps.
 
 #. :ref:`Specify the minimum grade that a learner must earn to receive
@@ -30,9 +30,9 @@ In addition to setting the usual grade scale for your course, you indicate a
 specific grade that learners must receive to earn credit for your course.
 
 #. In Studio, select **Settings**, and then select **Grading**.
-#. In the **Credit Eligibility** section, specify a grade followed by
-   a percent sign (%) in the **Minimum Credit-Eligible Grade** box.
-   This grade can be any number from 1 to 100.
+#. In the **Credit Eligibility** section, specify a grade in the **Minimum
+   Credit-Eligible Grade** box. This grade must be greater than or equal to
+   the passing grade for the course.
 
 .. _Add Identity Checks:
 
