@@ -40,11 +40,11 @@ specific grade that learners must receive to earn credit for your course.
 Add Identity Checks
 ****************************
 
-For courses that offer academic credit, edX has two forms of identity checks:
-in-course reverification and proctored exams. You can use either feature or
-both features in your course.
+For courses that offer academic credit, edX offers the following identity
+checks: in-course identity reverification and proctored exams. You can use either
+feature or both features in your course.
 
-* In-course reverification allows you to add identity verification
+* In-course identity reverification allows you to add identity verification
   "checkpoints" at specific locations in your course, such as before
   assessments or exams. When learners reach a checkpoint, they must use the
   webcams on their computers to verify their identity, similar to the original
@@ -53,4 +53,4 @@ both features in your course.
   For more information, see :ref:`In Course Reverification`.
 
 * Proctored exams...
-
+... Info from Carol
