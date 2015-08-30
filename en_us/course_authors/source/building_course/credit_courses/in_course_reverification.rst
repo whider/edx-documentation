@@ -5,7 +5,8 @@ In-Course Identity Reverification
 #################################
 
 To use in-course identity reverification, you must enable reverification in
-your course, and create specific verification checkpoints, and then modify the settings for the components and units that you want to hide behind each checkpoint. 
+your course, create specific verification checkpoints, and then set an
+assessment to require verification.
 
 .. contents:: 
  :local:
@@ -36,15 +37,17 @@ steps.
 
 .. _Create ICRV Checkpoint:
 
-*********************************************
-Create a Verification Checkpoint Component
-*********************************************
+*********************************
+Create a Verification Checkpoint
+*********************************
 
 To require learners to verify their identity before a specific assessment, you
-create a verification checkpoint in the subsection that contains that
-assessment. After you create a checkpoint, the checkpoint appears on the
-**Progress** pages and in the courseware for learners who must complete in-
-course identity reverification.
+add a verification checkpoint component to a unit in that assessment. After
+you create a checkpoint component, the checkpoint appears on the **Progress**
+pages and in the courseware for learners who must complete in-course identity
+reverification.
+
+.. Not sure about leaving this note in
 
 .. note:: Although it is possible to add a verification checkpoint at any
  location, edX strongly recommends that you add verification checkpoints only
@@ -69,63 +72,49 @@ course identity reverification.
 .. _Require Verification:
 
 *********************************************************
-Require Verification to Access an Assessment
+Set an Assessment to Require Verification
 *********************************************************
 
-If you want to require learners to pass a verification checkpoint before they
-access an assessment, you must change the settings of the components or units
-that make up that assessment to require verification.
+After you create a verification checkpoint in an assessment, you must set the
+components and units in that assessment to be invisible until learners pass
+the checkpoint that you created. You can also leave some components or units
+visible.
 
-When you change component or unit settings to require verification, remember
-the following guidelines.
+To make a component or unit invisible, you select the verification checkpoint
+in the settings of the component or unit. By default, all components and units
+are visible. To leave them visible, do not select a verification checkpoint in
+the component or unit settings.
 
-* **If a unit is not set to require verification**, all of the components in
-  that unit are visible by default. However, you can set individual components
-  to require verification. These components are not visible until the learner
-  passes the verification checkpoint.
+Before you make a component or unit invisible, become familiar with the
+following information.
 
-* **If a unit is set to require verification**, none of the components in that
-  unit is visible until the learner passes the verification checkpoint. You
-  cannot make an individual component visible without verification.
+* If you set an entire unit to be invisible until learners pass a verification
+  checkpoint, all of the components in that unit are invisible. You cannot
+  make an individual component visible.
+
+* If you do not set a unit to be invisible, all of the components in that unit
+  are visible by default. However, you can set individual components to be
+  invisible until the learner passes the verification checkpoint.
 
 .. important:: Do not set the unit that contains the verification 
- checkpoint component to require verification. If you do this, learners cannot
- access any of the content in the unit, including the verification checkpoint.
+ checkpoint component, or the verification component itself, to require
+ verification. If you do this, learners cannot access the verification
+ checkpoint.
 
-For example, you may want a unit to contain some introductory text that is
-visible at all times, followed by the verification checkpoint, followed by an
-exam question. You do not want learners to see the exam question until they
-pass the verification checkpoint.
-
-To accomplish this, you would follow these steps.
-
-#. Create a new unit. Do not change the unit settings.
-#. Create one component for the introductory text, and enter your text in the
-   component. 
-#. Create the verification checkpoint component.
-#. Create a component for the question, and enter the content for the
-   component.
-#. Change the settings of the question component to require verification. Do
-   not change the settings of the other components.
-
-For an example of the learner view of this content, see
-:ref:`Understand Learner Experience`.
+For an example situation in which a unit contains two visible and one
+invisible component, see :ref:`Verification Example`.
 
 =================================================
-Specify a Verification Checkpoint for a Component
+Require Verification for a Component
 =================================================
 
-If only some of the components in a unit require verification, access the
-component visibility settings for each component that requires verification,
-and then select the verification checkpoint that you want from the list.
+To set a component to be invisible until the learner completes identity
+verification, access the component visibility settings for the component, and
+then select the verification checkpoint that you want from the list.
 
-.. image:: ../Images/ICRV_CompUnitSettings.png  
-  :width: 500
-  :alt: The settings editor for a component and for a unit, showing
-      verification checkpoints.
-
-.. note:: If you do not change the settings for a component, that component 
- is visible before the learner passes the verification checkpoint.
+.. important:: Do not set the verification checkpoint component itself 
+ to require verification. If you do this, learners cannot access the
+ verification checkpoint.
 
 #. On the unit page, locate the component that you want, and then select
    **Visibility Settings** for that component. The **Visibility Settings**
@@ -140,12 +129,11 @@ and then select the verification checkpoint that you want from the list.
       verification checkpoints.
 
 =================================================
-Specify a Verification Checkpoint for a Unit
+Require Verification for a Unit
 =================================================
 
-If all of the components in a unit require verification, access the unit
-settings, and then select the verification checkpoint that you want from the
-list.
+To require verification for a unit, access the unit settings, and then select
+the verification checkpoint that you want from the list.
 
 .. important:: Do not set the unit that contains the verification 
  checkpoint to require verification. If you do this, learners cannot access
@@ -162,6 +150,39 @@ list.
     :width: 250
     :alt: The settings editor for a unit, showing the list of verification
       checkpoints.
+
+.. _Verification Example:
+
+=================================================
+See an Identity Verification Example
+=================================================
+
+In your assessment, you want the first unit to contain some introductory text,
+the verification checkpoint, and an exam question. You want the introductory
+text to be visible to all learners, regardless of verification. However, you
+do not want learners to see the exam question until they pass the verification
+checkpoint.
+
+You want all of the components in the remaining units to be invisible until
+learners pass the verification checkpoint.
+
+To create this assessment, you would follow these steps.
+
+#. Create a new unit. Do not change the unit settings.
+#. Create one component for the introductory text, and enter your text in the
+   component. 
+#. Below the introductory text component, create the verification checkpoint
+   component.
+#. Below the verification checkpoint component, create a component for the
+   question, and enter the content for the component.
+#. Change the settings of the question component to require verification. Do
+   not change the settings of the other components.
+#. Create the remaining units and components. Change the settings of each
+   remaining unit to require identity verification. You do not have to change
+   the settings of the individual components in any of these units.
+
+For the learner view of the first unit, see
+:ref:`Understand Learner Experience`.
 
 .. _Understand Learner Experience:
 
@@ -200,5 +221,5 @@ arrive at a checkpoint, the learners receive a message about identity
 verification and verified certificates. They can access assessment content.
 
 For more information about the in-course identity reverification experience
-for the learner, see :ref:`In-Course Identity Reverification <http://edx-guide-for-students.readthedocs.org/en/latest/SFD_credit_courses/SFD_in_course_ID_reverification.html>`.
-
+for the learner, see
+:ref:`In-Course Identity Reverification <http://edx-guide-for-students.readthedocs.org/en/latest/SFD_credit_courses/SFD_in_course_ID_reverification.html>`.
