@@ -45,7 +45,12 @@ To browse topics and find a team to join, follow these steps.
 
 #. In the LMS, select the **Teams** page.
 #. Select the **Browse** tab.
-#. On the **Browse** page, read about each of the available topics to work in.
+#. On the **Browse** page, view the list of available topics to work in.
+
+   You can sort the topics alphabetically by name, or by the team count in
+   each topic.
+
+.. add image   
 
 #. When you have found a topic you are interested in, select the arrow button
    to see the teams that exist in that topic.
@@ -54,9 +59,13 @@ To browse topics and find a team to join, follow these steps.
   :width: 500
   :alt: On the page showing available topics, one topic has the arrow button
       that takes users to the list of teams within that topic highlighted.
-      
+   
+   You can sort the teams by teams that showed the most recent activity, or by
+   teams with the most open slots.
 
-5. Each team's name and description are shown, as well as the number of team
+.. add image
+
+#. Each team's name and description are shown, as well as the number of team
    members, letting you know whether the team is full, or whether there is space
    for you to join.
 
@@ -64,7 +73,10 @@ To browse topics and find a team to join, follow these steps.
   :width: 500
   :alt: Click the View button on a team card within a topic to go to the Team Details page. 
 
-6. To get a better sense of a team's members, discussion, and communications,
+#. Within a topic, you can use keywords to search team descriptions and
+   titles. For more information, see :ref:`Search for a Team`.
+
+8. To get a better sense of a team's members, discussion, and communications,
    select **View** for a team.
 
    On a team's detail page, you can browse the team's discussion posts, but
@@ -81,6 +93,34 @@ To browse topics and find a team to join, follow these steps.
 .. image:: ../../shared/students/Images/Teams_Breadcrumbs.png
   :width: 500
   :alt: Use the breadcrumb links to navigate within teams and topics.
+
+
+.. _Search for a Team:
+
+******************
+Search for a Team
+******************
+
+You can use keywords to find teams within a topic that match your interests.
+
+.. note:: Partial strings are not supported for searching teams.
+
+To get a list of teams that match your search keywords, follow these steps.
+
+#. In the LMS, select the **Teams** tab.
+
+#. On the **Teams** page, select **Browse**, then select the topic in which
+   you want to find a team.
+   
+#. In the search field, enter one or more keywords to search for, then press
+   **Enter** or select the search icon.
+
+   .. note:: Partial strings are not supported for searching teams.
+
+   Teams within the topic that match your search are displayed. 
+
+To clear the existing search term, select the **X** next to the search field
+or select all the text within the field and enter text to replace it.
 
 
 =======================
