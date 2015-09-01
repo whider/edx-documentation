@@ -18,7 +18,10 @@ steps.
 
 #. :ref:`Specify the minimum grade that a learner must earn to receive
    academic credit in the course <Specify Minimum Credit Eligible Grade>`.
-#. :ref:`Add identity checks to the course <Add Identity Checks>`.
+#. :ref:`Determine which identity checks you want to use and add identity
+   checks to the course <Add Identity Checks>`. We recommend that you read the
+   information about each type of identity check before you decide which type
+   or types you want to use. Adding an identity check involves several steps.
 
 .. _Specify Minimum Credit Eligible Grade:
 
@@ -49,7 +52,7 @@ feature or both features in your course.
 * In-course identity reverification allows you to add identity verification
   "checkpoints" at specific locations in your course, such as before
   assessments or exams. When learners reach a checkpoint, they must use the
-  webcams on their computers to verify their identity, similar to the original
+  webcams on their computers to verify their identities, similar to the original
   ID verification process, before they can access more course content.
 
   For more information, see :ref:`In Course Reverification`.
