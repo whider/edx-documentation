@@ -10,8 +10,8 @@ Preparing to Reuse Course Content
   you create a duplicate version of the course. You use the duplicate course
   specifically as a source of content for your external LMS. Based on
   configuration choices your organization makes for using edX as an LTI tool
-  provider, you might be asked to create the duplicate course on edX Edge, on
-  the ``edx-lti.org`` site, or on another host site.
+  provider, you might be asked to create the duplicate course on edX Edge
+  or on another host site.
 
 .. only:: Open_edX
 
